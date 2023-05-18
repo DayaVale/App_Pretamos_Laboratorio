@@ -48,7 +48,8 @@ CREATE TABLE inventario_laboratorio (
   nombre_material VARCHAR(255) NOT NULL,
   cantidad_total INT NOT NULL,
   observacion TEXT,
-  imagen VARCHAR(255)
+  imagen VARCHAR(255),
+  disponible BOOLEAN DEFAULT true
 );
 
 -----------------------------------------
@@ -56,3 +57,20 @@ SELECT * FROM inventario_laboratorio;
 
 ---------------------------------------------------------------------------
 DROP TABLE inventario_laboratorio;
+
+-----------------------------------------------------------------------
+SELECT * FROM reservaciones;
+---------------------------------------------------------------
+CREATE TABLE reservaciones(
+	Id BIGSERIAL PRIMARY KEY,
+	user_id varchar(255) NOT NULL,
+	insumo_id BIGINT NOT NULL,
+	fecha_inicio DATE NOT NULL,
+	fecha_termi DATE NOT NULL,
+	cantidad_re INT NOT NULL DEFAULT 0,
+	status varchar(255) NOT NULL DEFAULT 'vigente' CHECK(status = 'vigente'OR status = 'vencido' OR status = 'finalizado'),
+	CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES usuarios(username),
+	CONSTRAINT fk_insumo FOREIGN KEY (insumo_id) REFERENCES inventario_laboratorio(numero_serial)
+);
+
+---- El estatus tiene activo o vigente/ vencido / finalizado

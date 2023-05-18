@@ -1,3 +1,12 @@
+<?php
+// Para obtener los datos de la persona
+session_start();
+// Verificar si el nombre de usuario está almacenado en la sesión
+$nombreUsuario = $_SESSION['nombre'];
+$identificar = $_SESSION['identificar']
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -39,6 +48,7 @@
         </div>
         <nav>
             <ul>
+            <span class="nav-item"><?php echo $nombreUsuario; ?></span>
                 <li><a href="login.html">Logout</a></li>
             </ul>
         </nav>
